@@ -18,7 +18,7 @@ def home():
     REQUEST_COUNT.inc()
 
     return f"""
-    <h1>DevOps Lab</h1>
+    <h1>DevOps LabV2</h1>
 
     <p>Aplicacion Flask funcionando correctamente.</p>
 
