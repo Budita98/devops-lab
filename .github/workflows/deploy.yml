@@ -11,26 +11,18 @@ jobs:
 
   deploy:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
 
-      - name: Deploy on Server
+      - name: Git Pull
 
-        uses: appleboy/ssh-action@v1.0.3
+        run: |
+          cd ~/devops-lab
+          git pull
 
-        with:
+      - name: Rebuild Containers
 
-          host: ${{ secrets.HOST }}
-
-          username: ${{ secrets.USERNAME }}
-
-          key: ${{ secrets.SSH_KEY }}
-
-          script: |
-
-            cd ~/devops-lab
-
-            git pull
-
-            docker compose up -d --build
+        run: |
+          cd ~/devops-lab
+          docker compose up -d --build
