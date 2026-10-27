@@ -1,0 +1,13 @@
+- name: Copiar archivo
+
+  hosts: local
+
+  tasks:
+
+    - name: Copiar README
+
+      copy:
+
+        src: ../README.md
+
+        dest: /tmp/README.md

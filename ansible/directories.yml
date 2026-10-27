@@ -1,0 +1,13 @@
+- name: Crear directorios
+
+  hosts: local
+
+  tasks:
+
+    - name: Crear carpeta deploy
+
+      file:
+
+        path: /home/devops/deploy
+
+        state: directory

@@ -1,0 +1,27 @@
+- name: Deploy DevOps Lab
+
+  hosts: local
+
+  tasks:
+
+    - name: Obtener ultima version del repositorio
+
+      git:
+
+        repo: git@github.com:Budita98/devops-lab.git
+
+        dest: /home/devops/devops-lab
+
+        version: main
+
+        update: yes
+
+    - name: Levantar stack docker
+
+      community.docker.docker_compose_v2:
+
+        project_src: /home/devops/devops-lab
+
+        build: always
+
+        state: present

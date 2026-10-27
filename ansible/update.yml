@@ -1,0 +1,13 @@
+- name: Actualizar Ubuntu
+
+  hosts: local
+
+  become: true
+
+  tasks:
+
+    - name: Actualizar cache apt
+
+      apt:
+
+        update_cache: yes

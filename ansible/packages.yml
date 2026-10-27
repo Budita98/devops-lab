@@ -1,0 +1,19 @@
+- name: Instalar paquetes
+
+  hosts: local
+
+  become: true
+
+  tasks:
+
+    - name: Instalar software
+
+      apt:
+
+        name:
+
+          - git
+          - curl
+          - vim
+
+        state: present
