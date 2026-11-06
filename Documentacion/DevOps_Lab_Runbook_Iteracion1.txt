@@ -1,0 +1,232 @@
+DEVOPS LAB - DOCUMENTACION OPERATIVA
+ITERACION 1
+
+OBJETIVO
+Mantener una referencia rapida del estado actual de la VM, componentes instalados, ubicaciones, comandos operativos y procedimientos de recuperacion.
+
+=====================================================
+USUARIO PRINCIPAL
+=====================================================
+Usuario: devops
+Home: /home/devops
+
+=====================================================
+REPOSITORIO GIT
+=====================================================
+Repositorio remoto:
+git@github.com:Budita98/devops-lab.git
+
+Repositorio local:
+/home/devops/devops-lab
+
+Verificar remoto:
+git remote -v
+
+=====================================================
+SSH
+=====================================================
+Usuario: devops
+
+Configuracion:
+PasswordAuthentication no
+PermitRootLogin no
+
+Ubicacion de claves:
+/home/devops/.ssh
+
+=====================================================
+DOCKER Y DOCKER COMPOSE
+=====================================================
+Ver contenedores:
+docker ps
+
+Ver imagenes:
+docker images
+
+Reconstruir stack:
+cd ~/devops-lab
+docker compose up -d --build
+
+Detener stack:
+cd ~/devops-lab
+docker compose down
+
+Logs Flask:
+docker logs flask-app
+
+Logs Nginx:
+docker logs web-nginx
+
+=====================================================
+APLICACION
+=====================================================
+Arquitectura:
+Browser -> Nginx -> Flask
+
+URL principal:
+http://IP_VM:8080
+
+=====================================================
+OBSERVABILIDAD
+=====================================================
+Ubicacion:
+/home/devops/devops-lab/monitoring
+
+Prometheus:
+http://IP_VM:9090
+
+Grafana:
+http://IP_VM:3000
+
+cAdvisor:
+http://IP_VM:8081
+
+Node Exporter:
+http://IP_VM:9100/metrics
+
+Usuario Grafana:
+admin
+
+Contrasena:
+Verificar la configurada manualmente durante la fase 5.
+
+=====================================================
+GITHUB ACTIONS
+=====================================================
+Workflow:
+.github/workflows/deploy.yml
+
+Disparador:
+Push a main
+
+=====================================================
+SELF HOSTED RUNNER
+=====================================================
+Ubicacion:
+/home/devops/actions-runner
+
+Entrar:
+cd ~/actions-runner
+
+Ejecutar:
+./run.sh
+
+Verificar estado:
+GitHub -> Settings -> Actions -> Runners
+
+Problema conocido:
+Si el runner figura Offline los jobs quedan en estado Queued.
+
+=====================================================
+CI/CD
+=====================================================
+Flujo actual:
+Modificar codigo
+-> git add
+-> git commit
+-> git push
+-> GitHub Actions
+-> Self Hosted Runner
+-> Docker Compose
+-> Aplicacion actualizada
+
+=====================================================
+ANSIBLE
+=====================================================
+Ubicacion:
+/home/devops/devops-lab/ansible
+
+Inventario:
+inventory.ini
+
+Playbooks:
+update.yml
+packages.yml
+directories.yml
+copy.yml
+deploy.yml
+
+Ejecutar despliegue:
+cd ~/devops-lab/ansible
+ansible-playbook -i inventory.ini deploy.yml
+
+=====================================================
+KUBERNETES
+=====================================================
+Kubectl:
+kubectl version --client
+
+Minikube:
+minikube version
+
+Iniciar cluster:
+minikube start --driver=docker
+
+Verificar nodo:
+kubectl get nodes
+
+Ver deployments:
+kubectl get deployments
+
+Ver pods:
+kubectl get pods
+
+Ver servicios:
+kubectl get svc
+
+IMPORTANTE:
+Despues de reiniciar la VM normalmente es necesario volver a ejecutar:
+minikube start --driver=docker
+
+=====================================================
+PROBLEMAS CONOCIDOS
+=====================================================
+Hora incorrecta:
+chronyc tracking
+chronyc sources -v
+sudo chronyc makestep
+
+Runner en Queue:
+Verificar que actions-runner este ejecutandose.
+
+Aplicacion no actualiza:
+cd ~/devops-lab
+docker compose up -d --build
+
+Kubernetes no responde:
+minikube start --driver=docker
+
+=====================================================
+COMANDOS DE EMERGENCIA
+=====================================================
+Proyecto:
+cd ~/devops-lab
+
+Actualizar stack:
+docker compose up -d --build
+
+Runner:
+cd ~/actions-runner && ./run.sh
+
+Ansible:
+cd ~/devops-lab/ansible
+ansible-playbook -i inventory.ini deploy.yml
+
+Kubernetes:
+minikube start --driver=docker
+
+=====================================================
+ESTADO FINAL ITERACION 1
+=====================================================
+OK Linux y SSH Hardening
+OK Git y GitHub
+OK Docker y Docker Compose
+OK Flask
+OK Nginx Reverse Proxy
+OK Prometheus
+OK Grafana
+OK cAdvisor
+OK GitHub Actions
+OK Self Hosted Runner
+OK Ansible
+OK Kubernetes Basico
